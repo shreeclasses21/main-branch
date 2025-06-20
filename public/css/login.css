@@ -1,0 +1,54 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Left welcome gradient and bubbles */
+.left-bubble-bg {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.2) 0%, transparent 60%),
+              radial-gradient(circle at 80% 80%, rgba(186, 104, 200, 0.15) 0%, transparent 60%),
+              linear-gradient(to bottom right, #6D28D9, #9333EA);
+}
+
+/* Tabs */
+.tab-button.active {
+  background-color: #6D28D9;
+  color: white;
+  box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);
+}
+
+.tab-button:not(.active):hover {
+  background-color: #f3f4f6;
+  color: #1F2937;
+}
+
+.tab-button.active:hover {
+  background-color: #5B21B6;
+}
+/* Bubble shared base style */
+.bubble {
+  position: absolute;
+  background-color: white;
+  opacity: 0.1;
+  border-radius: 9999px;
+  backdrop-filter: blur(3px);
+  animation: float 8s ease-in-out infinite;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+/* Bubble sizes */
+.bubble-xl {
+  width: 10rem; /* 40 */
+  height: 10rem;
+}
+
+.bubble-md {
+  width: 7rem;  /* 28 */
+  height: 7rem;
+}
+
+/* Float animation */
+@keyframes float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}

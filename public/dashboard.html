@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Shree Classes</title>
+    <!-- Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Define custom Tailwind configuration for professional colors and Inter font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'], // Use Inter font
+                    },
+                    colors: {
+                        // Inherit color palette from previous pages for consistency
+                        'primary-dark': '#3B0764',
+                        'primary-light': '#6D28D9',
+                        'background-light': '#F8FAFC',
+                        'background-dark': '#E2E8F0',
+                        'card-bg': '#FFFFFF',
+                        'text-main': '#1F2937',
+                        'text-secondary': '#6B7280',
+                        'border-light': '#E5E7EB',
+                        'shadow-light': 'rgba(0, 0, 0, 0.05)',
+                        'accent-gradient-start': '#8B5CF6',
+                        'accent-gradient-end': '#EC4899',
+                        'header-bg': '#FFFFFF', /* White header background */
+                        'sidebar-bg': '#1F2937', /* Dark sidebar background */
+                        'sidebar-text-light': '#D1D5DB', /* Light text for sidebar */
+                        'sidebar-hover': '#374151', /* Darker grey for sidebar hover */
+                        'logout-red': '#EF4444', /* Red for logout button */
+                    },
+                    boxShadow: {
+                        'custom-light': '0 4px 6px -1px var(--tw-shadow-light), 0 2px 4px -1px var(--tw-shadow-light)',
+                        'card-glow': '0 0 30px rgba(109, 40, 217, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="font-inter flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-header-bg shadow-md p-4 flex justify-between items-center z-10">
+        <div class="flex items-center">
+            <svg class="h-8 w-8 text-primary-dark mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.201 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.523 5.799 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.799 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.523 18.201 18 16.5 18s-3.332.477-4.5 1.253"></path>
+            </svg>
+            <h1 class="text-2xl font-bold text-primary-dark">Shree Classes</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="text-lg text-text-main">Welcome, <span id="displayNamePlaceholder" class="font-semibold">Student</span>!</span>
+            <a href="../auth/logout.php" class="px-4 py-2 bg-logout-red text-white rounded-lg shadow-md hover:bg-red-700 transition duration-300">Logout</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="bg-sidebar-bg w-64 p-6 flex flex-col shadow-lg">
+            <nav class="space-y-4">
+                <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-lg text-sidebar-text-light hover:bg-sidebar-hover transition duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7-7 7 7M19 10v10a1 1 0 001 1h3"></path></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="apply_leave.html" class="flex items-center space-x-3 p-3 rounded-lg text-sidebar-text-light hover:bg-sidebar-hover transition duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.201 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.523 5.799 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.799 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.523 18.201 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                    <span>Apply for Leave</span>
+                </a>
+                <a href="view_leaves.php" class="flex items-center space-x-3 p-3 rounded-lg text-sidebar-text-light hover:bg-sidebar-hover transition duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 16h.01M17 16h.01M21 12h-4c-.792 0-1.5-.77-1.5-1.724V9.724C15.5 8.77 16.208 8 17 8h4a1 1 0 011 1v2a1 1 0 01-1 1zM3 20h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                    <span>View Leave Requests</span>
+                </a>
+                <a href="holidays.php" class="flex items-center space-x-3 p-3 rounded-lg text-sidebar-text-light hover:bg-sidebar-hover transition duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 16h.01M17 16h.01M21 12h-4c-.792 0-1.5-.77-1.5-1.724V9.724C15.5 8.77 16.208 8 17 8h4a1 1 0 011 1v2a1 1 0 01-1 1zM3 20h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                    <span>Public Holidays</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div class="bg-card-bg p-8 rounded-2xl shadow-xl w-full max-w-2xl border border-border-light transform transition-all duration-300 hover:shadow-card-glow animate-fade-in mx-auto">
+                <div class="text-center mb-8">
+                    <!-- Dashboard Icon -->
+                    <svg class="mx-auto h-16 w-16 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7-7 7 7M19 10v10a1 1 0 001 1h3"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7-7 7 7M19 10v10a1 1 0 001 1h3"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v5m-3-1v1a1 1 0 001 1h4a1 1 0 001-1v-1m-4 0v1m-4-1v1"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.333V3a1 1 0 00-1-1H7a1 1 0 00-1 1v1.333a1 1 0 001 1h4a1 1 0 001-1zm-3 5.334h.01M15 9.667h.01"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v4a1 1 0 001 1h6a1 1 0 001-1V7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17v-4a1 1 0 00-1-1h-6a1 1 0 00-1 1v4"></path>
+                    </svg>
+                    <h2 class="text-4xl font-extrabold text-center text-primary-dark mt-4">Welcome to Your Dashboard!</h2>
+                    <!-- PHP would dynamically insert the name here in a real scenario -->
+                    <p class="text-xl text-text-main mt-2">Hello, <span id="displayNamePlaceholder" class="font-semibold">Student</span>!</p>
+                </div>
+
+                <p class="text-center text-text-secondary mb-8 leading-relaxed">This is your student dashboard. From here you can manage various aspects of your academic journey. Select an option below to get started:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <a href="apply_leave.html" class="dashboard-link">
+                        <div class="p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-200 ease-in-out flex items-center justify-start space-x-3 border border-border-light hover:border-primary-light">
+                            <svg class="h-8 w-8 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.201 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.523 5.799 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.799 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.523 18.201 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                            <span class="text-lg font-medium text-primary-dark">Apply for Leave</span>
+                        </div>
+                    </a>
+                    <a href="view_leaves.php" class="dashboard-link">
+                        <div class="p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-200 ease-in-out flex items-center justify-start space-x-3 border border-border-light hover:border-primary-light">
+                            <svg class="h-8 w-8 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 16h.01M17 16h.01M21 12h-4c-.792 0-1.5-.77-1.5-1.724V9.724C15.5 8.77 16.208 8 17 8h4a1 1 0 011 1v2a1 1 0 01-1 1zM3 20h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                            <span class="text-lg font-medium text-primary-dark">View Leave Requests</span>
+                        </div>
+                    </a>
+                    <a href="holidays.php" class="dashboard-link">
+                        <div class="p-6 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition duration-200 ease-in-out flex items-center justify-start space-x-3 border border-border-light hover:border-primary-light">
+                            <svg class="h-8 w-8 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 16h.01M17 16h.01M21 12h-4c-.792 0-1.5-.77-1.5-1.724V9.724C15.5 8.77 16.208 8 17 8h4a1 1 0 011 1v2a1 1 0 01-1 1zM3 20h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
+                            <span class="text-lg font-medium text-primary-dark">Check Public Holidays</span>
+                        </div>
+                    </a>
+                    <!-- Placeholder for future links if needed -->
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm flex items-center justify-start space-x-3 text-text-secondary border border-border-light">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        <span class="text-lg font-medium">More Features Soon!</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="../auth/logout.php" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-error-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-error-red transition duration-300 ease-in-out transform hover:scale-105">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V4m-3 0h6a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Link to your external JavaScript file -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* public/css/style.css */
+
+/* Basic transition for the modal */
+.modal {
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-content {
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal.hidden .modal-content {
+    transform: translateY(-20px);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom glow effect for buttons */
+.btn-glow {
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+.btn-glow:hover {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+/* Loading Spinner for submit button */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+/* Large Loading Spinner for page load */
+.spinner-large {
+    border: 8px solid rgba(139, 92, 246, 0.3); /* Purple-ish color from theme */
+    border-top: 8px solid #8B5CF6; /* Stronger purple */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apply for Leave</title>
+  <script>
+    async function loadLeaveTypes() {
+      const res = await fetch('../api/get_leave_types.php');
+      const types = await res.json();
+      const select = document.getElementById('leaveType');
+      types.forEach(t => {
+        const option = document.createElement('option');
+        option.value = t.id;
+        option.text = t.name;
+        select.add(option);
+      });
+    }
+
+    async function submitLeave(e) {
+      e.preventDefault();
+      const data = {
+        Leave_Type__c: document.getElementById('leaveType').value,
+        From_Date__c: document.getElementById('fromDate').value,
+        To_Date__c: document.getElementById('toDate').value,
+        Reason__c: document.getElementById('reason').value,
+        Status__c: "Pending",
+        Student__c: document.getElementById('studentId').value
+      };
+
+      const response = await fetch('../api/push_leave.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.text();
+      document.getElementById('result').innerText = result;
+    }
+
+    window.onload = loadLeaveTypes;
+  </script>
+</head>
+<body>
+  <h2>Apply for Leave</h2>
+  <form onsubmit="submitLeave(event)">
+    <label>Leave Type:</label>
+    <select id="leaveType" required></select><br><br>
+
+    <label>From Date:</label>
+    <input type="date" id="fromDate" required><br><br>
+
+    <label>To Date:</label>
+    <input type="date" id="toDate" required><br><br>
+
+    <label>Reason:</label><br>
+    <textarea id="reason" required></textarea><br><br>
+
+    <label>Student Contact ID:</label>
+    <input type="text" id="studentId" placeholder="003gL00000565vMQAQ" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="result"></p>
+</body>
+</html>

@@ -1,0 +1,110 @@
+/* Basic styling for the Inter font and overall page layout */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Consistent background with other pages */
+    background: radial-gradient(circle at top left, theme('colors.background-light') 0%, transparent 70%),
+                radial-gradient(circle at bottom right, theme('colors.background-dark') 0%, transparent 70%),
+                linear-gradient(135deg, theme('colors.background-light'), theme('colors.background-dark'));
+    display: flex;
+    flex-direction: column; /* Ensure body itself is a column flex container */
+    min-height: 100vh; /* Make body at least full viewport height */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: theme('colors.text-main');
+    overflow-y: auto; /* Allow scrolling for the whole body if content overflows */
+}
+
+/* Animation for the main content card */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.7s ease-out forwards;
+}
+
+/* Styling for the dashboard navigation links within the main content area */
+.dashboard-link {
+    display: block;
+    text-decoration: none;
+}
+.dashboard-link > div {
+    /* Ensure flex alignment is centered for content within the link boxes */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text/icon to start */
+    padding: 1.5rem; /* Increased padding */
+    min-height: 100px; /* Ensure consistent height for boxes */
+}
+.dashboard-link svg {
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    margin-right: 0.75rem; /* Space between icon and text */
+}
+
+/* Specific styles for the header and sidebar layout */
+header {
+    width: 100%;
+    position: sticky; /* Makes header stick to the top */
+    top: 0;
+    z-index: 20; /* Ensures header is above other content */
+}
+
+/* Responsive adjustments for the sidebar */
+aside {
+    /* Default for mobile: fixed, off-screen, full height */
+    position: fixed;
+    top: 0; /* Starts from the very top */
+    left: 0;
+    height: 100vh; /* Full viewport height */
+    width: 256px; /* w-64 */
+    padding-top: 1rem; /* Adjust as needed */
+    z-index: 30; /* Higher than overlay */
+    transform: translateX(-100%); /* Initially off-screen */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+    flex-direction: column; /* Ensure content stacks vertically */
+    display: flex; /* Ensures it's a flex container even when off-screen */
+}
+
+/* On large screens (lg:), override mobile styles */
+@media (min-width: 1024px) { /* Tailwind's 'lg' breakpoint */
+    aside {
+        position: relative; /* Back to normal flow */
+        transform: translateX(0); /* Always visible */
+        width: 256px; /* Fixed width */
+        min-height: calc(100vh - theme('spacing.16')); /* Account for header height */
+        top: theme('spacing.16'); /* Sticks below the header */
+        padding-top: 2rem; /* Original padding */
+        display: flex; /* Ensure it's always flex */
+    }
+}
+
+
+main {
+    flex-grow: 1; /* Allows main content to take up available space */
+    padding: 1rem; /* Smaller padding for mobile */
+    width: 100%; /* Ensure main takes full width of its flex container */
+}
+
+@media (min-width: 640px) { /* Tailwind's 'sm' breakpoint */
+    main {
+        padding: 2rem; /* Larger padding for tablets and desktops */
+    }
+}
+
+/* Ensure the flex container for sidebar and main content also takes full width */
+.flex-1 {
+    width: 100%; /* Ensure this flex container takes full width */
+}
+
+/* Overlay for sidebar on mobile */
+#sidebarOverlay {
+    transition: opacity 0.3s ease-in-out;
+}

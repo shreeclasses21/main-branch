@@ -1,0 +1,406 @@
+/* ========================================= */
+/* STUDENT PROFILE COMPONENT CSS             */
+/* ========================================= */
+
+/* Body and Overall Layout for Profile Page (Minimal, for isolated demo) */
+/* This specific body styling is ONLY for when this CSS is viewed standalone. */
+/* When integrated into a global layout, the global_layout.css body styles will apply. */
+body.profile-page-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #4a5568;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #f0f4f8, #e6e9f0);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem; /* --profile-spacing-lg --profile-spacing-sm */
+    overflow-x: hidden;
+}
+
+/* Headings & Typography */
+.profile-card h1,
+.profile-card h2,
+.profile-card h3 {
+    font-family: 'Roboto Slab', serif;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Utility Classes used in HTML for this component */
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.text-red-500 { color: #ef4444; }
+.text-center { text-align: center; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+.text-gray-400 { color: #a0aec0; }
+.text-gray-500 { color: #718096; }
+.text-gray-700 { color: #4a5568; }
+.text-emerald-600 { color: #059669; }
+.hidden { display: none !important; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.max-w-full { max-width: 100%; }
+
+
+/* Main Profile Container */
+.profile-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 1.5rem; /* --profile-border-radius-xl */
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5); /* --profile-shadow-lg */
+}
+
+/* Subtle background glow effect */
+.profile-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 1.5rem; /* --profile-border-radius-xl */
+    background: linear-gradient(to right, #6366f1, #d946ef, #2dd4bf); /* --profile-color-accent-blue-light, etc. */
+    filter: blur(40px);
+    opacity: 0.15;
+    z-index: 0;
+}
+
+/* Glassmorphism Card for Profile */
+.profile-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.85); /* --profile-color-bg-card */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5); /* --profile-color-border-card-light */
+    border-radius: 1.5rem; /* --profile-border-radius-xl */
+    padding: 4rem; /* --profile-spacing-xxl */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* --profile-shadow-glass */
+}
+
+.profile-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #2c3e50; /* --profile-color-text-dark */
+    margin-bottom: 4rem; /* --profile-spacing-xxl */
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.profile-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2); /* --profile-color-primary, --profile-color-primary-dark */
+    border-radius: 2px;
+}
+
+.profile-message {
+    text-align: center;
+    margin-bottom: 2.5rem; /* --profile-spacing-lg */
+    font-size: 1rem; /* --profile-spacing-sm */
+    font-weight: 500;
+}
+
+.profile-display-section {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem; /* --profile-spacing-xl */
+}
+
+/* Profile Avatar */
+.profile-avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* --profile-spacing-sm */
+    margin-bottom: 2.5rem; /* --profile-spacing-lg */
+}
+
+.profile-avatar-ring {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.4); /* --profile-color-avatar-ring */
+    background-color: rgba(255, 255, 255, 0.85); /* --profile-color-bg-card */
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7fafc;
+    color: #718096; /* --profile-color-text-light */
+}
+
+.profile-photo-url-display {
+    font-size: 0.25rem; /* --profile-spacing-xxs */
+    color: #718096; /* --profile-color-text-light */
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Section Headings (Read-only & Form) */
+.section-heading, .form-heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #4a5568; /* --profile-color-text-medium */
+    margin-bottom: 1.5rem; /* --profile-spacing-md */
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Information Grids (Display Mode) */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.info-grid dt {
+    font-weight: 500;
+    color: #667eea; /* --profile-color-primary */
+    text-align: right;
+    padding-right: 15px;
+    position: relative;
+}
+
+.info-grid dt::after {
+    content: ':';
+    position: absolute;
+    right: 0;
+}
+
+.info-grid dd {
+    color: #4a5568; /* --profile-color-text-medium */
+    word-wrap: break-word;
+}
+
+.mailing-address-text {
+    margin-top: 0.5rem; /* --profile-spacing-xs */
+    color: #4a5568; /* --profile-color-text-medium */
+}
+
+.profile-actions {
+    text-align: center;
+}
+
+/* Form Styles */
+.profile-form {
+    margin-top: 1.5rem; /* --profile-spacing-md */
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem; /* --profile-spacing-xl */
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.form-grid label {
+    display: block;
+    font-weight: 500;
+    color: #4a5568; /* --profile-color-text-medium */
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e0; /* --profile-color-border-input */
+    border-radius: 0.5rem; /* --profile-border-radius-sm */
+    font-size: 1rem;
+    color: #2c3e50; /* --profile-color-text-dark */
+    background-color: #f7fafc; /* --profile-color-bg-input */
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #667eea; /* --profile-color-primary */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background-color: rgba(255, 255, 255, 0.85); /* --profile-color-bg-card */
+}
+
+textarea.input-field {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.form-field-readonly input {
+    background-color: #edf2f7; /* --profile-color-bg-input-readonly */
+    cursor: not-allowed;
+    color: #718096; /* --profile-color-text-light */
+    box-shadow: none;
+}
+
+.form-field-full-width {
+    grid-column: 1 / -1;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(90deg, #667eea, #764ba2); /* --profile-color-primary, --profile-color-primary-dark */
+    color: #ffffff;
+    padding: 14px 30px;
+    border-radius: 0.5rem; /* --profile-border-radius-sm */
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); /* --profile-shadow-button */
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6); /* --profile-shadow-button-hover */
+}
+
+.btn-secondary {
+    background-color: #e2e8f0; /* --profile-color-btn-secondary-bg */
+    color: #4a5568; /* --profile-color-text-medium */
+    padding: 14px 30px;
+    border-radius: 0.5rem; /* --profile-border-radius-sm */
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 1px solid #cbd5e0; /* --profile-color-btn-secondary-border */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e0; /* --profile-color-btn-secondary-hover-bg */
+    color: #2c3e50; /* --profile-color-text-dark */
+    transform: translateY(-1px);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem; /* --profile-spacing-sm */
+    padding-top: 0.5rem; /* --profile-spacing-xs */
+}
+
+
+/* ========================================= */
+/* RESPONSIVE ADJUSTMENTS                    */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    body.profile-page-body {
+        padding: 1.5rem 0.5rem; /* --profile-spacing-md --profile-spacing-xs */
+    }
+
+    .profile-card {
+        padding: 2.5rem; /* --profile-spacing-lg */
+    }
+
+    .profile-title {
+        font-size: 2.5rem;
+        margin-bottom: 2.5rem; /* --profile-spacing-lg */
+    }
+
+    .section-heading, .form-heading {
+        font-size: 1.5rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .info-grid dt {
+        text-align: center;
+        padding-right: 0;
+    }
+
+    .info-grid dt::after {
+        content: '';
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 1.5rem; /* --profile-spacing-md */
+    }
+
+    .profile-title {
+        font-size: 2rem;
+    }
+}
+/* Fullscreen overlay loader */
+#loadingOverlay {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 6px solid #ddd;
+  border-top: 6px solid #6D28D9; /* primary */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Spinner inside button */
+.btn-spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 0.5em;
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your OTP Code - Shree Classes</title>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style type="text/css">
+        /* Client-specific resets */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1F2937; /* text-main */
+            background-color: #f5f7fa; /* background-light fallback */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            padding: 0;
+            text-align: left;
+        }
+        a {
+            color: #6D28D9; /* primary-light */
+            text-decoration: none;
+        }
+
+        /* Main Container Styling */
+        .email-container {
+            max-width: 500px; /* Slightly wider for modern feel */
+            margin: 30px auto;
+            background: #FFFFFF; /* card-bg */
+            border-radius: 12px; /* More rounded corners */
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #E5E7EB; /* border-light */
+        }
+
+        /* Header Styling */
+        .email-header {
+            background-color: #3B0764; /* primary-dark */
+            padding: 25px 20px;
+            color: #ffffff;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            background-image: linear-gradient(to right, #8B5CF6, #EC4899); /* accent-gradient */
+            position: relative;
+            overflow: hidden;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px; /* Larger heading */
+            font-weight: 700; /* Bold */
+            line-height: 1.2;
+            padding-bottom: 10px;
+        }
+        .email-header p {
+            margin: 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .email-header-icon {
+            font-size: 30px;
+            line-height: 1;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+
+        /* Content Section */
+        .email-content {
+            padding: 30px;
+            color: #1F2937; /* text-main */
+        }
+        .email-content p {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        /* OTP Box Styling */
+        .otp-box {
+            font-size: 38px; /* Significantly larger */
+            font-weight: 800; /* Extra bold */
+            text-align: center;
+            padding: 25px; /* More padding */
+            background-color: #F8FAFC; /* background-light */
+            border-radius: 8px;
+            letter-spacing: 5px; /* More spacing for digits */
+            margin: 25px 0;
+            border: 2px dashed #D1D5DB; /* light border for emphasis */
+            color: #3B0764; /* primary-dark for the OTP */
+            word-break: break-all; /* Ensure long OTP doesn't overflow */
+        }
+
+        /* Footer Styling */
+        .email-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px; /* Slightly smaller for footer */
+            color: #6B7280; /* text-secondary */
+            border-top: 1px solid #E5E7EB; /* border-light */
+            background-color: #F8FAFC; /* background-light */
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Responsive adjustments */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+            }
+            .email-header, .email-footer {
+                border-radius: 0;
+            }
+            .email-content, .email-header, .email-footer {
+                padding: 20px;
+            }
+            .email-header h1 {
+                font-size: 22px;
+            }
+            .otp-box {
+                font-size: 32px;
+                padding: 20px;
+                margin: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <div class="email-header-icon">🔐</div>
+            <h1>Shree Classes - OTP Verification</h1>
+            <p>Your secure One-Time Password</p>
+        </div>
+        <div class="email-content">
+            <p>Dear Student,</p>
+            <p>To complete your action, please use the following One-Time Password:</p>
+            <div class="otp-box">{{OTP}}</div>
+            <p>This code is valid for <strong>10 minutes</strong>. For your security, please do not share this code with anyone.</p>
+            <p>If you did not request this code, please ignore this email.</p>
+            <p>Thanks,<br>Team Shree Classes</p>
+        </div>
+        <div class="email-footer">
+            &copy; <?= date('Y') ?> Shree Classes. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

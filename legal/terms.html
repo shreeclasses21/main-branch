@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms & Conditions - Shree Classes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom CSS for enhanced aesthetics with Purple Pink Theme */
+    body {
+      font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+      background: linear-gradient(135deg, #fce4ec, #e1bee7); /* Light pink to light purple gradient */
+      color: #424242; /* Darker gray for general text readability */
+    }
+
+    .sidebar {
+      background: rgba(255, 255, 255, 0.95); /* Slightly more opaque sidebar */
+      backdrop-filter: blur(20px); /* Stronger blur for modern look */
+      border-right: 1px solid #f8bbd0; /* Lighter pink border color */
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    }
+
+    .main-card {
+      background-color: #ffffff;
+      border-radius: 1.5rem; /* More rounded corners */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Stronger, more elegant shadow */
+      transition: transform 0.3s ease; /* Smooth transition on hover (optional, but nice) */
+    }
+
+    .main-card:hover {
+        /* transform: translateY(-5px); */ /* Example hover effect */
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 1.25rem; /* Increased padding */
+      color: #880e4f; /* Dark pink/purple for links */
+      font-weight: 500;
+      border-radius: 0.75rem; /* More rounded links */
+      transition: all 0.3s ease; /* Smoother transition */
+      position: relative; /* For active indicator */
+      overflow: hidden; /* To contain ripple effect */
+    }
+
+    .sidebar a:hover {
+      background-color: #f8bbd0; /* Lighter pink hover background */
+      color: #4a148c; /* Darker purple text on hover */
+      transform: translateX(5px); /* Slight movement on hover */
+    }
+
+    /* Active link style - assuming 'terms.html' is the current page */
+    .sidebar a.active {
+        background: linear-gradient(90deg, #c2185b, #e91e63); /* Gradient for active link (vibrant pink) */
+        color: #ffffff;
+        box-shadow: 0 5px 15px rgba(194, 24, 91, 0.4); /* Pink shadow */
+        transform: translateX(5px);
+    }
+
+    .sidebar a.active svg {
+        color: #ffffff;
+    }
+
+    .sidebar a svg {
+      margin-right: 0.75rem; /* Increased spacing for icon */
+      width: 1.25rem; /* Larger icons */
+      height: 1.25rem;
+      flex-shrink: 0; /* Prevent icon from shrinking */
+      color: #c2185b; /* Default SVG color to vibrant pink */
+    }
+
+    /* Scrollbar styling for main content for better UX */
+    .main-content-scroll {
+        max-height: calc(100vh - 4rem); /* Adjusted for less vertical padding */
+        overflow-y: auto;
+        padding-right: 1rem; /* Space for scrollbar */
+    }
+
+    /* Custom scrollbar styles */
+    .main-content-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .main-content-scroll::-webkit-scrollbar-track {
+        background: #fce4ec; /* Light pink background for track */
+        border-radius: 10px;
+    }
+
+    .main-content-scroll::-webkit-scrollbar-thumb {
+        background: #ce93d8; /* Medium purple thumb */
+        border-radius: 10px;
+    }
+
+    .main-content-scroll::-webkit-scrollbar-thumb:hover {
+        background: #ab47bc; /* Darker purple on hover */
+    }
+
+    /* Text colors based on new theme */
+    .text-indigo-800 {
+        color: #880e4f; /* Dark pink for main titles */
+    }
+    .text-indigo-900 {
+        color: #4a148c; /* Deep purple for main brand title */
+    }
+    .text-indigo-700 {
+        color: #c2185b; /* Vibrant pink for section titles and strong text */
+    }
+    .text-indigo-500 {
+        color: #e91e63; /* Another shade of pink for SVG icons */
+    }
+    .text-gray-600 {
+        color: #616161; /* Darker gray for regular paragraph text */
+    }
+    .text-gray-700 {
+        color: #424242; /* Even darker gray for text for better contrast */
+    }
+    .text-gray-500 {
+        color: #9e9e9e; /* Lighter gray for footer text */
+    }
+
+  </style>
+</head>
+<body class="text-gray-800">
+
+  <div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar -->
+    <aside class="sidebar w-full md:w-64 p-6 md:p-8 flex-shrink-0">
+      <h2 class="text-2xl font-extrabold text-indigo-900 mb-8 text-center md:text-left">📚 Shree Classes</h2>
+      <nav class="space-y-4">
+        <a href="terms.html" class="active"> <!-- Added 'active' class for current page -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M3.75 6.75a3 3 0 013-3h12a3 3 0 013 3v6.75a3 3 0 01-3 3h-3a3 3 0 00-3 3H9.75a3 3 0 01-3-3v-6.75a3 3 0 00-3-3v-6.75zM6.75 6.75v3h-3a.75.75 0 00-.75.75v.75a.75.75 0 00.75.75h3v3a.75.75 0 00.75.75h.75a.75.75 0 00.75-.75v-3h3a.75.75 0 00.75-.75v-.75a.75.75 0 00-.75-.75h-3v-3a.75.75 0 00-.75-.75h-.75a.75.75 0 00-.75.75z" clip-rule="evenodd" />
+          </svg>
+          Terms & Conditions
+        </a>
+        <a href="privacy.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd" />
+          </svg>
+          Privacy Policy
+        </a>
+        <a href="cookies.html">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.007z" clip-rule="evenodd" />
+          </svg>
+          Cookie Policy
+        </a>
+      <a href="../index.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800">
+  <!-- Home icon SVG -->
+  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+    <path d="M10.707 1.293a1 1 0 0 1 1.586 0l9 10a1 1 0 0 1-.742 1.707H19v8a1 1 0 0 1-1 1h-4v-6H10v6H6a1 1 0 0 1-1-1v-8H3.449a1 1 0 0 1-.742-1.707l9-10z"/>
+  </svg>
+  <span>Home</span>
+</a>
+
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-6 md:p-12"> <!-- Adjusted padding and removed centering classes -->
+      <div class="main-card w-full p-8 sm:p-12 main-content-scroll"> <!-- Removed max-w-4xl -->
+        <h1 class="text-4xl font-extrabold text-indigo-800 mb-6 text-center sm:text-left">Terms and Conditions</h1>
+        <p class="mb-8 text-gray-600 text-base sm:text-lg leading-relaxed">
+          Welcome to <strong class="text-indigo-700">Shree Classes</strong>. By accessing and using our platform, you signify your acceptance of and agreement to comply with the following comprehensive terms and conditions. Please read them carefully.
+        </p>
+
+        <section class="space-y-8 text-base sm:text-lg">
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.473-1.697 3.18L12 21.423 4.697 15.18C3.63 14.473 3 13.268 3 12s.63-2.473 1.697-3.18L12 2.577l7.303 6.318C20.37 9.527 21 10.732 21 12z" />
+                </svg>
+                1. Acceptance of Terms
+            </h3>
+            <p class="text-gray-700">Your continued use of our services constitutes your explicit agreement to all terms, policies, and guidelines outlined herein, as well as any future amendments. If you do not agree, you must discontinue use immediately.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                2. User Account and Security
+            </h3>
+            <p class="text-gray-700">You are solely responsible for maintaining the confidentiality of your account credentials (username and password) and for all activities that occur under your account. You agree to notify Shree Classes immediately of any unauthorized use or breach of security. We cannot and will not be liable for any loss or damage arising from your failure to comply with this security obligation.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5l6 4.5-6 4.5-6-4.5 6-4.5zM12 7.5V18" />
+                </svg>
+                3. Intellectual Property and Content Usage
+            </h3>
+            <p class="text-gray-700">All content provided on the Shree Classes platform, including but not limited to course materials, videos, texts, graphics, and logos, is the exclusive intellectual property of Shree Classes or its licensors. This material is protected by copyright, trademark, and other intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to access and use the content solely for your personal, non-commercial educational purposes. Any redistribution, reproduction, modification, or public display of our proprietary material without prior written consent from Shree Classes is strictly prohibited and may result in legal action.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 10.5v-.75a2.25 2.25 0 00-2.25-2.25H9.75A2.25 2.25 0 007.5 7.5v.75m4.5 3v-3m0 3h-3m3 0h3m-9 1.5H5.25A2.25 2.25 0 003 12.75v3.375c0 1.29.984 2.352 2.25 2.352h2.532a2.25 2.25 0 011.897 1.14l.306.653a2.25 2.25 0 001.956 1.14h2.348c.783 0 1.426-.47 1.735-1.117l.547-1.297a.75.75 0 01.41-.41l1.297-.547A2.25 2.25 0 0021 16.5V12.75a2.25 2.25 0 00-2.25-2.25h-5.372c-.598-.215-.957-.943-.784-1.666z" />
+                </svg>
+                4. Payments and Refunds
+            </h3>
+            <p class="text-gray-700">All fees for courses and services are clearly stated and must be paid in advance. Refund policies, if applicable, will be specified at the time of purchase and are subject to the terms outlined in our Refund Policy document. Shree Classes reserves the right to change its pricing at any time without prior notice, though existing enrollments will not be affected.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09L18 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L11.25 12l2.846-.813a4.5 4.5 0 003.09-3.09z" />
+                </svg>
+                5. Limitation of Liability
+            </h3>
+            <p class="text-gray-700">Shree Classes provides its services "as is" and "as available" without any warranties, express or implied. We do not guarantee that the service will be uninterrupted, error-free, or completely secure. In no event shall Shree Classes be liable for any direct, indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or goodwill, arising out of or in connection with your use of our platform.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M19.5 21v-8.25M3 12h18M3 12l-3-3m3 3l-3 3m18-3l3-3m-3 3l3 3M12 21V3" />
+                </svg>
+                6. Governing Law
+            </h3>
+            <p class="text-gray-700">These Terms and Conditions shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts in [City/State, e.g., Pune, Maharashtra], India.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-indigo-700 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-indigo-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+                7. Changes to Terms
+            </h3>
+            <p class="text-gray-700">Shree Classes reserves the right to modify or replace these Terms and Conditions at any time. We will provide reasonable notice of any significant changes by posting the new terms on this page or through other appropriate communication channels. Your continued use of the service after any such changes constitutes your acceptance of the new terms.</p>
+          </div>
+        </section>
+
+        <footer class="pt-10 mt-10 border-t border-gray-200 text-sm text-gray-500 text-center">
+          &copy; 2025 Shree Classes. All rights reserved.
+        </footer>
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>
