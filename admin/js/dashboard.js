@@ -465,7 +465,7 @@ async function generateMonthlyAssignments() {
   status.textContent = "";
 
   try {
-    const res = await fetch("/shreeclasses-api/api/assign_monthly_leaves.php");
+    const res = await fetch("api/assign_monthly_leaves.php");
     const text = await res.text();
 
     status.textContent = text;
