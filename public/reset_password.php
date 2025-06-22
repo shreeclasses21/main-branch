@@ -14,6 +14,8 @@ if (!isset($_SESSION['otp_verified']) || !isset($_SESSION['contact_id'])) {
     <!-- Include Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Define custom Tailwind configuration for professional colors and Inter font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <script>
         tailwind.config = {
             theme: {
@@ -79,29 +81,37 @@ if (!isset($_SESSION['otp_verified']) || !isset($_SESSION['contact_id'])) {
 
         <!-- Set New Password Form -->
         <form id="resetPasswordForm" action="../auth/reset_password.php" method="POST" class="space-y-6">
-            <div>
-                <label for="new_password" class="block text-sm font-medium text-text-secondary mb-1">New Password:</label>
-                <input
-                    type="password"
-                    id="new_password"
-                    name="new_password"
-                    required
-                    class="mt-1 block w-full px-4 py-2 border border-border-light rounded-lg shadow-sm focus:ring-primary-light focus:border-primary-light outline-none transition duration-200 ease-in-out sm:text-sm placeholder-text-secondary"
-                    placeholder="Enter your new password"
-                >
-            </div>
+           <div>
+  <label for="new_password" class="block text-sm font-medium text-text-secondary mb-1">New Password:</label>
+  <div class="relative">
+    <input
+      type="password"
+      id="new_password"
+      name="new_password"
+      required
+      class="mt-1 block w-full px-4 py-2 border border-border-light rounded-lg shadow-sm focus:ring-primary-light focus:border-primary-light pr-10 sm:text-sm placeholder-text-secondary"
+      placeholder="Enter your new password"
+    >
+    <i id="toggleNewPassword" class="fa-solid fa-eye absolute right-3 top-3.5 text-gray-500 cursor-pointer"></i>
+  </div>
+</div>
+
 
             <div>
-                <label for="confirm_password" class="block text-sm font-medium text-text-secondary mb-1">Confirm Password:</label>
-                <input
-                    type="password"
-                    id="confirm_password"
-                    name="confirm_password"
-                    required
-                    class="mt-1 block w-full px-4 py-2 border border-border-light rounded-lg shadow-sm focus:ring-primary-light focus:border-primary-light outline-none transition duration-200 ease-in-out sm:text-sm placeholder-text-secondary"
-                    placeholder="Confirm your new password"
-                >
-            </div>
+  <label for="confirm_password" class="block text-sm font-medium text-text-secondary mb-1">Confirm Password:</label>
+  <div class="relative">
+    <input
+      type="password"
+      id="confirm_password"
+      name="confirm_password"
+      required
+      class="mt-1 block w-full px-4 py-2 border border-border-light rounded-lg shadow-sm focus:ring-primary-light focus:border-primary-light pr-10 sm:text-sm placeholder-text-secondary"
+      placeholder="Confirm your new password"
+    >
+    <i id="toggleConfirmPassword" class="fa-solid fa-eye absolute right-3 top-3.5 text-gray-500 cursor-pointer"></i>
+  </div>
+</div>
+
 
             <button
                 type="submit"
@@ -120,5 +130,31 @@ if (!isset($_SESSION['otp_verified']) || !isset($_SESSION['contact_id'])) {
 
     <!-- Link to your external JavaScript file -->
     <script src="js/set-new-password.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  const toggleNewPassword = document.getElementById('toggleNewPassword');
+  const newPasswordInput = document.getElementById('new_password');
+
+  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+  const confirmPasswordInput = document.getElementById('confirm_password');
+
+  toggleNewPassword.addEventListener('click', () => {
+    const isHidden = newPasswordInput.type === 'password';
+    newPasswordInput.type = isHidden ? 'text' : 'password';
+    toggleNewPassword.classList.toggle('fa-eye');
+    toggleNewPassword.classList.toggle('fa-eye-slash');
+  });
+
+  toggleConfirmPassword.addEventListener('click', () => {
+    const isHidden = confirmPasswordInput.type === 'password';
+    confirmPasswordInput.type = isHidden ? 'text' : 'password';
+    toggleConfirmPassword.classList.toggle('fa-eye');
+    toggleConfirmPassword.classList.toggle('fa-eye-slash');
+  });
+});
+
+    </script>
+
 </body>
 </html>
