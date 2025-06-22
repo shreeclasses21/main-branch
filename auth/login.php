@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             redirectWithError('⚠️ Password not set. Please reset your password.');
         }
 
-        if ($password !== $storedPass) {
+        // ✅ Use password_verify() to compare hashed password
+        if (!password_verify($password, $storedPass)) {
             redirectWithError('❌ Incorrect password.');
         }
 
