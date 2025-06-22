@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/db.php'; // ✅ DB Connection
+require_once __DIR__ . '/../../config/db.php';
 
 // Get today's month and year
 $monthName = date('F'); // e.g. "June"
