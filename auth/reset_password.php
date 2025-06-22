@@ -24,17 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $contactId = $_SESSION['contact_id'];
-    $plainPass = $newPass;
 
     try {
-        // Update password in DB
+        // ✅ Hash the password securely
+        $hashedPass = password_hash($newPass, PASSWORD_DEFAULT);
+
+        // ✅ Update password in DB
         $stmt = $pdo->prepare("
             UPDATE students 
             SET password = :password, first_time_login = 0 
             WHERE id = :id
         ");
         $stmt->execute([
-            'password' => $plainPass,
+            'password' => $hashedPass,
             'id'       => $contactId
         ]);
 
