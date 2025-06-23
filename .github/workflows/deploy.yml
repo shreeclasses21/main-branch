@@ -1,4 +1,4 @@
-name: 🚀 Deploy to Hostinger (correct path)
+name: 🚀 Deploy to Hostinger (correct domain path)
 
 on:
   push:
@@ -22,12 +22,11 @@ jobs:
         run: |
           ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: 🧹 Optional: Clean old files
+      - name: 🧹 Clean old files (optional)
         run: |
-          ssh -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} \
-          'rm -rf /home/${{ secrets.HOSTINGER_USER }}/domains/mediumslateblue-cattle-898539.hostingersite.com/public_html/*'
+          ssh -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} "rm -rf /home/${{ secrets.HOSTINGER_USER }}/domains/mediumslateblue-cattle-898539.hostingersite.com/public_html/*"
 
-      - name: 🚀 Deploy to correct public_html folder
+      - name: 🚀 Deploy to correct public_html path
         run: |
           rsync -avz --delete --no-relative \
             -e "ssh -p ${{ secrets.HOSTINGER_PORT }}" \
