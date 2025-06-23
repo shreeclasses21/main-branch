@@ -3,7 +3,7 @@ name: 🚀 Deploy to Hostinger
 on:
   push:
     branches:
-      - main  # Change this if you're deploying from a different branch
+      - main
 
 jobs:
   deploy:
@@ -22,8 +22,14 @@ jobs:
         run: |
           ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: 🚀 Deploy entire repo to public_html (flattened)
+      - name: 🧹 Clean existing files on server
         run: |
-          rsync -avz --delete --no-relative \
+          ssh -p ${{ secrets.HOSTINGER_PORT }} \
+            ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} \
+            'rm -rf /home/${{ secrets.HOSTINGER_USER }}/public_html/*'
+
+      - name: 🚀 Deploy entire repo to public_html
+        run: |
+          rsync -avz --no-relative \
             -e "ssh -p ${{ secrets.HOSTINGER_PORT }}" \
             ./ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:/home/${{ secrets.HOSTINGER_USER }}/public_html/
