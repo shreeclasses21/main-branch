@@ -39,7 +39,7 @@ if (!is_dir($localDir)) {
 
 $localFilename = 'photo_' . $contactId . '_' . time() . '.' . $fileExt;
 $localPath     = $localDir . $localFilename;
-$publicUrl     = '/shreeclasses-api/public/uploads/' . $localFilename;
+$publicUrl = '/public/uploads/' . $localFilename;
 
 if (!move_uploaded_file($tmpPath, $localPath)) {
     http_response_code(500);
