@@ -3,7 +3,7 @@ name: 🚀 Deploy to Hostinger
 on:
   push:
     branches:
-      - main
+      - main  # Change this if you're deploying from a different branch
 
 jobs:
   deploy:
@@ -13,7 +13,7 @@ jobs:
       - name: 📥 Checkout Code
         uses: actions/checkout@v3
 
-      - name: 🔐 Setup SSH
+      - name: 🔐 Setup SSH Agent
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.HOSTINGER_SSH_KEY }}
@@ -22,8 +22,8 @@ jobs:
         run: |
           ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: 🚀 Deploy all repo files to public_html
+      - name: 🚀 Deploy entire repo to public_html (flattened)
         run: |
-          rsync -avz --delete \
+          rsync -avz --delete --no-relative \
             -e "ssh -p ${{ secrets.HOSTINGER_PORT }}" \
             ./ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:/home/${{ secrets.HOSTINGER_USER }}/public_html/
