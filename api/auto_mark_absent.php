@@ -1,4 +1,9 @@
 <?php
+// ✅ Show errors for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../config/db.php';
 
 header('Content-Type: application/json');
@@ -30,13 +35,14 @@ try {
     $attendedStmt->execute(['today' => $today]);
     $attendedIds = $attendedStmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // ✅ Step 3: Get students on leave today
-    $leaveStmt = $pdo->prepare("
-        SELECT student_id FROM leave_assignments
-        WHERE from_date <= :today AND to_date >= :today AND status = 'Approved'
-    ");
-    $leaveStmt->execute(['today' => $today]);
-    $onLeaveIds = $leaveStmt->fetchAll(PDO::FETCH_COLUMN);
+// ✅ Step 3: Get students on leave today (from leave_requests)
+$leaveStmt = $pdo->prepare("
+    SELECT student_id FROM leave_requests
+    WHERE from_date <= :today AND to_date >= :today AND status = 'Approved'
+");
+$leaveStmt->execute(['today' => $today]);
+$onLeaveIds = $leaveStmt->fetchAll(PDO::FETCH_COLUMN);
+
 
     // ✅ Step 4: Calculate who is absent
     $absentStudents = array_diff($allStudentIds, array_merge($attendedIds, $onLeaveIds));
