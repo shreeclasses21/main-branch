@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    /* Global Body Styles */
+    body {
+      font-family: 'Inter', sans-serif; /* Changed font to Inter for a modern look */
+      background: #fdf6ff; /* Lighter background */
+      color: #444;
+      padding: 0; /* Remove padding to allow full background */
+      margin: 0; /* Remove default body margin */
+      display: flex; /* Use flexbox for centering */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      min-height: 100vh; /* Ensure it takes full viewport height */
+      background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23e8d9f4" fill-opacity="0.4"%3E%3Cpath d="M12 0H0v12h12V0zm30 0H18v12h24V0zM12 18H0v12h12V18zm30 0H18v12h24V18zM12 36H0v12h12V36zm30 0H18v12h24V36zM12 54H0v6h12v-6zm30 0H18v6h24v-6zM48 0h-6v12h6V0zm0 18h-6v12h6V18zm0 18h-6v12h6V36zm0 18h-6v6h6v-6zM54 0h-6v12h6V0zm0 18h-6v12h6V18zm0 18h-6v12h6V36zm0 18h-6v6h6v-6zM0 48h12v12H0V48zm18 0h24v12H18V48zm-6-6H0v6h12v-6zm30 0H18v6h24v-6zm-6-6H0v6h42v-6zm48 0h-6v6h6v-6z" fill="%23e0c3fc"/%3E%3C/g%3E%3C/svg%3E'); /* Subtle SVG background pattern */
+      background-attachment: fixed; /* Keep pattern fixed while scrolling */
+      overflow: hidden; /* Prevent scrollbar from balloon animation */
+    }
+
+    /* Container for the card */
+    .container {
+      max-width: 600px;
+      width: 90%; /* Responsive width */
+      margin: 40px auto; /* Added margin for better spacing on larger screens */
+      background: linear-gradient(to top, #ffffff, #fcfcff); /* Soft gradient background for the card */
+      border-radius: 16px; /* Slightly more rounded corners */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+      padding: 50px 30px; /* Increased padding */
+      text-align: center;
+      box-sizing: border-box;
+      border: 1px solid #eee; /* Subtle border */
+      position: relative; /* For z-index of balloons */
+      z-index: 10; /* Ensure container is below balloons (balloons z-index is higher) */
+    }
+
+    /* Greeting style */
+    .greeting {
+      font-size: 32px; /* Larger font size */
+      color: #8a2be2; /* Vibrant violet */
+      margin-bottom: 25px;
+      font-weight: 700; /* Bolder text */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.05); /* Subtle text shadow */
+    }
+
+    /* Message style */
+    .message {
+      font-size: 19px; /* Slightly larger message font */
+      margin-bottom: 40px;
+      line-height: 1.7; /* Improved line spacing */
+      color: #555;
+      max-width: 500px; /* Constrain message width for better readability */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Cake image style */
+    .cake {
+      width: 120px;
+      height: auto;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); /* Add a subtle shadow to the image */
+    }
+
+    /* Call to Action button */
+    .call-to-action {
+      display: inline-block;
+      background: linear-gradient(to right, #9b59b6, #e74c3c); /* Gradient button */
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease; /* Smooth transition for hover effects */
+      cursor: pointer; /* Indicate it's clickable */
+    }
+    .call-to-action:hover {
+      transform: translateY(-2px); /* Lift effect on hover */
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Footer style */
+    .footer {
+      font-size: 15px;
+      color: #888;
+      margin-top: 50px;
+      line-height: 1.5;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+        margin: 20px auto;
+      }
+      .greeting {
+        font-size: 26px;
+      }
+      .message {
+        font-size: 17px;
+        margin-bottom: 30px;
+      }
+      .cake {
+        width: 100px;
+        margin-bottom: 20px;
+      }
+      .footer {
+        margin-top: 30px;
+      }
+    }
+
+    /* Balloon Animation Styles */
+    @keyframes riseAndFade {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x-end), var(--y-end)) rotate(var(--rotate-end, 360deg));
+        opacity: 0;
+      }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      background-color: var(--balloon-color, #ff6b6b);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0; /* Hidden initially */
+      animation: riseAndFade var(--animation-duration, 5s) ease-out forwards;
+      z-index: 11; /* Changed z-index to be above the card */
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      top: 98%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-top: 6px solid var(--balloon-color, #ff6b6b);
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 25px; /* String length */
+      background-color: rgba(0, 0, 0, 0.2); /* String color */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+
+    <!-- Personalized greeting. The `{{name}}` placeholder can be replaced dynamically. -->
+    <div class="greeting">🎉 Happy Birthday, {{name}}! 🎂</div>
+    <!-- Main birthday message -->
+    <div class="message">
+      Wishing you a day filled with laughter, love, and endless joy.<br>
+      May all your dreams come true and may this year bring you success and happiness!
+    </div>
+    <!-- Footer with sender's name -->
+    <div class="footer">
+      – With best wishes from the <strong>Shree Classes</strong> team 💜
+      <br>
+      <small>Visit our website: <a href="#" style="color: #8a2be2; text-decoration: none;">shreeclasses.com</a></small>
+    </div>
+  </div>
+</body>
+</html>
