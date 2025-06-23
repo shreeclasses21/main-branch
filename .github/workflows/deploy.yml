@@ -3,7 +3,7 @@ name: 🚀 Deploy to Hostinger
 on:
   push:
     branches:
-      - main  # or change to 'sandbox' if that's your branch
+      - main  # or 'sandbox' if needed
 
 jobs:
   deploy:
@@ -17,6 +17,10 @@ jobs:
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.HOSTINGER_SSH_KEY }}
+
+      - name: 📌 Add Hostinger to known_hosts
+        run: |
+          ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
       - name: 🚀 Deploy via rsync
         run: |
