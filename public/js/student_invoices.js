@@ -1,48 +1,59 @@
 function initStudentInvoices() {
-  const container = document.getElementById('studentInvoicesList');
+    const container = document.getElementById('studentInvoicesList');
 
-  fetch('../api/get_my_invoices.php')
-    .then(res => res.json())
-    .then(json => {
-      if (json.status !== 'success') throw new Error(json.error);
+    // Clear previous content and show loading message
+    container.innerHTML = '<p>Loading your invoices...</p>';
 
-      const rows = json.data.map(inv => `
-        <tr class="border-t text-sm">
-          <td class="p-2">${inv.month}/${inv.year}</td>
-          <td class="p-2">₹${inv.amount}</td>
-          <td class="p-2">${inv.status}</td>
-          <td class="p-2">${inv.type}</td>
-          <td class="p-2">${inv.created_at}</td>
-          <td class="p-2">
-            ${inv.status === 'Paid'
-              ? `<button class="text-blue-600 underline" onclick='downloadReceipt(${inv.id})'>Download</button>`
-              : '<span class="text-gray-400">Pending</span>'}
-          </td>
-        </tr>
-      `).join('');
+    fetch('../api/get_my_invoices.php')
+        .then(res => res.json())
+        .then(json => {
+            if (json.status !== 'success') {
+                throw new Error(json.error || 'Failed to fetch invoices.');
+            }
 
-      container.innerHTML = `
-        <table class="w-full text-left border">
-          <thead class="bg-gray-50">
-            <tr>
-              <th class="p-2">Month</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Type</th>
-              <th>Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    })
-    .catch(err => {
-      container.innerHTML = `<p class="text-red-600">Error loading invoices: ${err.message}</p>`;
-    });
+            if (json.data.length === 0) {
+                container.innerHTML = '<p>No invoices found.</p>';
+                return;
+            }
+
+            // Clear loading message
+            container.innerHTML = '';
+
+            json.data.forEach(inv => {
+                const invoiceCard = document.createElement('div');
+                invoiceCard.className = 'invoice-card';
+
+                invoiceCard.innerHTML = `
+                    <div class="invoice-status-badge ${inv.status}">${inv.status}</div>
+
+                    <div class="invoice-detail-row">
+                        <strong>Month:</strong> <span>${inv.month}/${inv.year}</span>
+                    </div>
+                    <div class="invoice-detail-row">
+                        <strong>Amount:</strong> <span>₹${inv.amount}</span>
+                    </div>
+                    <div class="invoice-detail-row">
+                        <strong>Type:</strong> <span>${inv.type}</span>
+                    </div>
+                    <div class="invoice-detail-row">
+                        <strong>Date:</strong> <span>${inv.created_at}</span>
+                    </div>
+
+                    ${inv.status === 'Paid'
+                        ? `<button class="invoice-action-btn" onclick='downloadReceipt(${inv.id})'>Download Receipt</button>`
+                        : `<button class="invoice-action-btn pending-text" disabled>Pending</button>`
+                    }
+                `;
+                container.appendChild(invoiceCard);
+            });
+        })
+        .catch(err => {
+            container.innerHTML = `<p class="error-message">Error loading invoices: ${err.message}</p>`;
+            console.error('Error fetching invoices:', err);
+        });
 }
 
-// ✅ Now opens server-side PDF using mPDF
+// Opens server-side PDF using mPDF (remains unchanged)
 function downloadReceipt(invoiceId) {
-  window.open(`../api/generate_receipt.php?id=${invoiceId}`, '_blank');
+    window.open(`../api/generate_receipt.php?id=${invoiceId}`, '_blank');
 }
