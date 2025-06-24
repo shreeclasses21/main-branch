@@ -122,7 +122,25 @@ if (!isset($_SESSION['admin_id'])) {
                         <svg class="w-6 h-6 mr-3 text-purple-300 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         Manage Invoices
                     </a>
+                    <li class="mb-3">
+    <a href="#" onclick="loadSection('manage_subjects', this)" class="flex items-center px-4 py-3 text-lg font-medium text-purple-200 hover:bg-purple-700 hover:text-white rounded-xl transition-all duration-300 ease-in-out group">
+        <svg class="w-6 h-6 mr-3 text-purple-300 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Manage Subjects
+    </a>
+</li>
+
                 </li>
+                <li class="mb-3">
+    <a href="#" onclick="loadSection('upload_files', this)" class="flex items-center px-4 py-3 text-lg font-medium text-purple-200 hover:bg-purple-700 hover:text-white rounded-xl transition-all duration-300 ease-in-out group">
+        <svg class="w-6 h-6 mr-3 text-purple-300 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        Upload Files for Students
+    </a>
+</li>
+
             </ul>
         </nav>
         <div class="mt-auto pt-6 border-t border-purple-700">
@@ -172,6 +190,12 @@ function loadSection(section) {
   break;
   case 'manage_payment_invoices':
   initManageInvoices();
+  break;
+   case 'upload_files':
+  initUploadFiles();
+  break;
+  case 'manage_subjects':
+  initManageSubjects();
   break;
         // Add more cases for future modules like manage_leave_types, leave_assignments etc.
       }

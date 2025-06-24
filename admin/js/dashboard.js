@@ -851,3 +851,171 @@ function initManageInvoices() {
   loadInvoices();
 }
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    initUploadFiles(); // Initialize everything once DOM is ready
+});
+
+function initUploadFiles() {
+    const gradeDropdown = document.getElementById('grade');
+    const sectionDropdown = document.getElementById('section');
+    const studentsDropdown = document.getElementById('students');
+    const fileUploadForm = document.getElementById('fileUploadForm');
+
+    if (!gradeDropdown || !sectionDropdown || !studentsDropdown || !fileUploadForm) {
+        console.error('One or more required elements not found!');
+        return;
+    }
+
+    // Initial load
+    loadStudentsForUpload(gradeDropdown.value);
+    updateSections(gradeDropdown.value);
+
+    // Handle grade change
+    gradeDropdown.addEventListener('change', () => {
+        const selectedGrade = gradeDropdown.value;
+        loadStudentsForUpload(selectedGrade);
+        updateSections(selectedGrade);
+    });
+
+    // Handle file upload form submission
+    fileUploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(fileUploadForm);
+        const res = await fetch('api/upload_files.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await res.json();
+        const statusElement = document.getElementById('fileUploadStatus');
+
+        if (result.status === 'success') {
+            statusElement.innerHTML = '<p class="text-green-600">✅ Files uploaded successfully!</p>';
+            fileUploadForm.reset();
+        } else {
+            statusElement.innerHTML = '<p class="text-red-600">❌ Error: ' + result.message + '</p>';
+        }
+    });
+}
+
+// Load students by grade
+async function loadStudentsForUpload(grade) {
+    try {
+        const response = await fetch(`api/fetch_students_by_grade.php?grade=${encodeURIComponent(grade)}`);
+        const students = await response.json();
+
+        const studentsDropdown = document.getElementById('students');
+        studentsDropdown.innerHTML = students.map(student => `
+            <option value="${student.id}">${student.first_name} ${student.last_name}</option>
+        `).join('');
+    } catch (err) {
+        console.error('Failed to load students:', err);
+    }
+}
+
+async function updateSections(grade) {
+    const sectionDropdown = document.getElementById('section');
+    sectionDropdown.innerHTML = '<option disabled selected>Loading...</option>';
+
+    try {
+        const res = await fetch(`api/fetch_subjects_by_grade.php?grade=${encodeURIComponent(grade)}`);
+        const subjects = await res.json();
+
+        if (!Array.isArray(subjects) || subjects.length === 0) {
+            sectionDropdown.innerHTML = `<option disabled selected>No subjects found</option>`;
+            return;
+        }
+
+        sectionDropdown.innerHTML = subjects.map(subject => `
+            <option value="${subject.subject_name}">${subject.subject_name}</option>
+        `).join('');
+    } catch (err) {
+        console.error('Failed to load subjects:', err);
+        sectionDropdown.innerHTML = `<option disabled selected>Error loading subjects</option>`;
+    }
+}
+
+
+
+function initManageSubjects() {
+  loadSubjects();
+
+  const form = document.getElementById("addSubjectForm");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      const res = await fetch("api/add_subject.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (result.status === "success") {
+        form.reset();
+        loadSubjects();
+      } else {
+        alert(result.error || "Failed to add subject.");
+      }
+    });
+  }
+}
+
+async function loadSubjects() {
+  const res = await fetch("api/fetch_subjects.php");
+  const subjects = await res.json();
+  const list = document.getElementById("subjectList");
+  if (!list) return;
+
+  // 🧠 Group subjects by grade
+  const grouped = {};
+  subjects.forEach(sub => {
+    if (!grouped[sub.grade]) grouped[sub.grade] = [];
+    grouped[sub.grade].push(sub);
+  });
+
+  // 🧱 Build columns for each grade
+  list.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+      ${Object.keys(grouped).map(grade => `
+        <div class="bg-white border border-purple-200 shadow rounded-xl overflow-hidden">
+          <div class="bg-purple-600 text-white px-4 py-3 font-bold text-lg rounded-t-xl">
+            📘 Grade ${grade}
+          </div>
+          <div class="p-4">
+            <ul class="divide-y divide-gray-200">
+              ${grouped[grade].map(sub => `
+                <li class="flex items-center justify-between py-2">
+                  <span>${sub.subject_name}</span>
+                  <button onclick="deleteSubject(${sub.id})" class="text-red-600 hover:underline text-sm">🗑️</button>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+
+async function deleteSubject(id) {
+  if (!confirm("Delete this subject?")) return;
+
+  const res = await fetch("api/delete_subject.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id })
+  });
+
+  const result = await res.json();
+  if (result.status === "success") {
+    loadSubjects();
+  } else {
+    alert("Failed to delete.");
+  }
+}

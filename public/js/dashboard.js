@@ -105,6 +105,11 @@ if (markBtn) {
             await loadScript("js/student_invoices.js", "student_invoices.js");
             initStudentInvoices?.();
             break;
+            case "my_files":
+  await loadScript("js/my_files.js", "my_files.js");
+  initMyFiles?.();
+  break;
+
           default:
             console.log(`ℹ️ No extra JS for section "${section}"`);
         }

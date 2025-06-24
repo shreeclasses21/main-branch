@@ -179,6 +179,12 @@ error_log("Dashboard: Final display name set to: " . $displayName);
     </svg>
     <span>My Invoices</span>
 </a>
+<a href="#" data-section="my_files" class="sidebar-link flex items-center space-x-3 p-3 rounded-lg text-sidebar-text-light hover:bg-sidebar-hover transition duration-200">
+  <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path>
+  </svg>
+  <span>My Files</span>
+</a>
 
             </nav>
         </aside>
