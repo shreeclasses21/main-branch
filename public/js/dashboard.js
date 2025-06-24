@@ -109,6 +109,11 @@ if (markBtn) {
   await loadScript("js/my_files.js", "my_files.js");
   initMyFiles?.();
   break;
+   case "exams":
+  await loadScript("js/exam_register.js", "exam_register.js");
+  fetchAndRenderExams?.();
+  break;
+
 
           default:
             console.log(`ℹ️ No extra JS for section "${section}"`);

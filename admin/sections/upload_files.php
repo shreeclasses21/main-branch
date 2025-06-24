@@ -13,56 +13,60 @@ if (!isset($_SESSION['admin_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Upload Files for Students</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
+    .upload-wrapper {
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, #eef2ff, #f0f7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
     }
-    .floating-bg {
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    .upload-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 700px;
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+    .upload-header {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #4f46e5;
+    }
+    .floating-bubble {
       position: absolute;
       top: -60px;
       left: -60px;
       width: 300px;
       height: 300px;
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
       border-radius: 50%;
       filter: blur(80px);
       z-index: 0;
     }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      border-radius: 1.5rem;
-      padding: 2rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 10;
-      transition: transform 0.3s ease;
-    }
-    .glass-card:hover {
-      transform: translateY(-4px);
-    }
     select[multiple] {
-      min-height: 120px;
+      min-height: 130px;
     }
   </style>
 </head>
 
-<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-200 min-h-screen flex items-center justify-center relative overflow-hidden">
-
+<body>
+<div class="upload-wrapper">
   <!-- Floating bubble background -->
-  <div class="floating-bg"></div>
+  <div class="floating-bubble"></div>
 
   <!-- Main Upload Card -->
-  <div class="glass-card w-full max-w-2xl z-10">
-    <h2 class="text-3xl font-bold text-center text-indigo-700 mb-6 tracking-wide flex items-center justify-center gap-2">
+  <div class="upload-card z-10">
+    <h2 class="upload-header text-center mb-6 flex items-center justify-center gap-2">
       <img src="https://img.icons8.com/color/48/folder-invoices.png" class="w-8" />
       Upload Files for Students
     </h2>
 
     <form id="fileUploadForm" method="POST" enctype="multipart/form-data" class="space-y-6">
-      
       <!-- Grade -->
       <div>
         <label for="grade" class="block font-semibold text-gray-700 mb-1 flex items-center gap-2">
@@ -112,5 +116,6 @@ if (!isset($_SESSION['admin_id'])) {
 
     <div id="fileUploadStatus" class="mt-4 text-center text-sm font-medium"></div>
   </div>
+</div>
 </body>
 </html>

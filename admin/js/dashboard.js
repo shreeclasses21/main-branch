@@ -1019,3 +1019,224 @@ async function deleteSubject(id) {
     alert("Failed to delete.");
   }
 }
+
+
+
+// js/admin_exams.js
+
+// Initialize the admin panel functionality when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initExamAdmin);
+
+function initExamAdmin() {
+    // Load initial data
+    loadExistingExams();
+    loadExamDropdown();
+
+    // 📅 Exam Creation Form Handler
+    const examForm = document.getElementById('examForm');
+    if (examForm) {
+        examForm.addEventListener('submit', handleExamCreation);
+    }
+
+    // 📚 Subject Form Handler
+    const addSubjectsForm = document.getElementById('addSubjectsForm');
+    if (addSubjectsForm) {
+        addSubjectsForm.addEventListener('submit', handleSubjectAddition);
+    }
+
+    // 🧠 Load subjects dynamically when an exam is selected in the dropdown
+    const examDropdown = document.getElementById('examDropdown');
+    if (examDropdown) {
+        examDropdown.addEventListener('change', handleExamSelectionChange);
+    }
+}
+
+/**
+ * Handles the submission of the exam creation form.
+ * @param {Event} e - The submit event object.
+ */
+async function handleExamCreation(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Gather form data
+    const payload = {
+        title: document.getElementById('examTitle').value,
+        grade: document.getElementById('examGrade').value,
+        start_date: document.getElementById('examStartDate').value,
+        end_date: document.getElementById('examEndDate').value,
+        description: document.getElementById('examDescription').value,
+        rules: document.getElementById('examRules').value,
+        instructions: document.getElementById('examInstructions').value
+    };
+
+    const statusBox = document.getElementById('examCreationStatus');
+    statusBox.innerHTML = `<p class="status-message">Creating exam...</p>`; // Loading message
+
+    try {
+        const res = await fetch('api/add_exam.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+
+        if (result.status === 'success') {
+            statusBox.innerHTML = `<p class="status-message success">${result.message}</p>`;
+            examForm.reset(); // Clear the form
+            loadExistingExams(); // Refresh the list of exams
+            loadExamDropdown(); // Refresh the exam dropdown for subject assignment
+        } else {
+            statusBox.innerHTML = `<p class="status-message error">Error: ${result.message}</p>`;
+        }
+    } catch (err) {
+        console.error('Error creating exam:', err);
+        statusBox.innerHTML = `<p class="status-message error">Error submitting exam: ${err.message}</p>`;
+    }
+}
+
+/**
+ * Handles the submission of the form to add subjects to an exam.
+ * @param {Event} e - The submit event object.
+ */
+async function handleSubjectAddition(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Gather form data
+    const payload = {
+        exam_id: document.getElementById('examDropdown').value,
+        subject_name: document.getElementById('subjectDropdown').value,
+        subject_date: document.getElementById('subjectDate').value
+    };
+
+    const statusBox = document.getElementById('subjectAddStatus');
+    statusBox.innerHTML = `<p class="status-message">Adding subject...</p>`; // Loading message
+
+    try {
+        const res = await fetch('api/add_exam_subjects.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+
+        if (result.status === 'success') {
+            statusBox.innerHTML = `<p class="status-message success">${result.message}</p>`;
+            addSubjectsForm.reset(); // Clear the form
+        } else {
+            statusBox.innerHTML = `<p class="status-message error">Error: ${result.message}</p>`;
+        }
+    } catch (err) {
+        console.error('Error adding subject:', err);
+        statusBox.innerHTML = `<p class="status-message error">Error submitting subject: ${err.message}</p>`;
+    }
+}
+
+/**
+ * Handles the change event on the exam dropdown, loading subjects for the selected exam.
+ */
+async function handleExamSelectionChange() {
+    const examId = this.value;
+    const subjectDropdown = document.getElementById('subjectDropdown');
+    subjectDropdown.innerHTML = '<option value="">Loading subjects...</option>'; // Loading state for subjects
+
+    if (!examId) {
+        subjectDropdown.innerHTML = '<option value="">Select Exam First</option>';
+        return;
+    }
+
+    try {
+        const res = await fetch(`api/get_subjects_by_exam.php?exam_id=${examId}`);
+        const data = await res.json();
+
+        if (data.status === 'success') {
+            if (data.subjects.length === 0) {
+                subjectDropdown.innerHTML = '<option value="">No subjects found for this exam</option>';
+                return;
+            }
+
+            // Populate the dropdown with fetched subjects
+            subjectDropdown.innerHTML = '<option value="">Select Subject</option>';
+            data.subjects.forEach(subject => {
+                subjectDropdown.innerHTML += `<option value="${subject.subject_name}">${subject.subject_name}</option>`;
+            });
+        } else {
+            subjectDropdown.innerHTML = `<option value="">Error loading subjects</option>`;
+            console.error('Failed to load subjects:', data.message);
+        }
+    } catch (err) {
+        console.error('Error fetching subjects for exam:', err);
+        subjectDropdown.innerHTML = `<option value="">Error: ${err.message}</option>`;
+    }
+}
+
+/**
+ * Fetches and renders the list of existing exams.
+ */
+async function loadExistingExams() {
+    const container = document.getElementById('existingExamsList');
+    container.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 15px;">Loading existing exams...</p>';
+
+    try {
+        const res = await fetch('api/fetch_exams.php');
+        const data = await res.json();
+
+        if (data.status === 'success') {
+            if (data.exams.length === 0) {
+                container.innerHTML = '<p class="text-gray-600" style="text-align: center; color: #6b7280; padding: 15px;">No exams found.</p>';
+                return;
+            }
+
+            // Map exam data to HTML elements for display
+            container.innerHTML = data.exams.map(exam => `
+                <div class="existing-exam-item">
+                    <div class="title">${exam.title} (<span style="font-weight: normal;">Grade: ${exam.grade}</span>)</div>
+                    <div class="details"><strong>📅 Period:</strong> ${exam.start_date} to ${exam.end_date}</div>
+                    <div class="details"><strong>📝 Description:</strong> ${exam.description || '<span class="na-text">N/A</span>'}</div>
+                    <div class="details"><strong>📜 Rules:</strong> ${exam.rules || '<span class="na-text">N/A</span>'}</div>
+                    <div class="details"><strong>📋 Instructions:</strong> ${exam.instructions || '<span class="na-text">N/A</span>'}</div>
+                </div>
+            `).join('');
+        } else {
+            container.innerHTML = `<p class="status-message error">Failed to load exams: ${data.message}</p>`;
+            console.error('Failed to load exams:', data.message);
+        }
+    } catch (err) {
+        console.error('Error loading existing exams:', err);
+        container.innerHTML = `<p class="status-message error">Error: ${err.message}</p>`;
+    }
+}
+
+/**
+ * Fetches all exams and populates the 'Select Exam' dropdown for subject assignment.
+ */
+async function loadExamDropdown() {
+    const dropdown = document.getElementById('examDropdown');
+    dropdown.innerHTML = `<option value="">Loading Exams...</option>`; // Loading state
+
+    try {
+        const res = await fetch('api/fetch_exams.php');
+        const data = await res.json();
+
+        if (data.status === 'success') {
+            if (data.exams.length === 0) {
+                 dropdown.innerHTML = '<option value="">No Exams Available</option>';
+                 return;
+            }
+            dropdown.innerHTML = '<option value="">Select Exam</option>'; // Default option
+            data.exams.forEach(exam => {
+                dropdown.innerHTML += `<option value="${exam.id}">${exam.title} (Grade: ${exam.grade})</option>`;
+            });
+        } else {
+            dropdown.innerHTML = `<option value="">Failed to load exams</option>`;
+            console.error('Failed to load exam dropdown:', data.message);
+        }
+    } catch (err) {
+        console.error('Error loading exam dropdown:', err);
+        dropdown.innerHTML = `<option value="">Error loading exams</option>`;
+    }
+}
+
+// Ensure initExamAdmin runs after the DOM is fully loaded
+// (already handled by document.addEventListener('DOMContentLoaded', initExamAdmin) at the top)
