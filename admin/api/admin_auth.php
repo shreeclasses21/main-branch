@@ -10,17 +10,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 
+// Hash the entered password using SHA-256
+$hashedInputPassword = hash('sha256', $password);
+
 try {
     $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ?");
     $stmt->execute([$username]);
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($admin && password_verify($password, $admin['password'])) {
+    if ($admin && $hashedInputPassword === $admin['password']) {
+        // ✅ Auth success
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_name'] = $admin['name'];
         header('Location: ../dashboard.php');
         exit;
     } else {
+        // ❌ Wrong credentials
         $_SESSION['admin_error'] = "Invalid username or password.";
         header('Location: ../login.php');
         exit;

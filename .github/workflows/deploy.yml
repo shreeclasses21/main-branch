@@ -1,4 +1,4 @@
-name: 🚀 Deploy to Hostinger (correct domain path)
+name: 🚀 Deploy to Hostinger (shreeclasses.site)
 
 on:
   push:
@@ -22,13 +22,8 @@ jobs:
         run: |
           ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
 
-      # Removed this step to prevent deletion of old files
-      # - name: 🧹 Clean old files (optional)
-      #   run: |
-      #     ssh -p ${{ secrets.HOSTINGER_PORT }} ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} "rm -rf /home/${{ secrets.HOSTINGER_USER }}/domains/mediumslateblue-cattle-898539.hostingersite.com/public_html/*"
-
-      - name: 🚀 Deploy to correct public_html path
+      - name: 🚀 Deploy to shreeclasses.site public_html
         run: |
           rsync -avz \
             -e "ssh -p ${{ secrets.HOSTINGER_PORT }}" \
-            ./ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:/home/${{ secrets.HOSTINGER_USER }}/domains/mediumslateblue-cattle-898539.hostingersite.com/public_html/
+            ./ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:/home/${{ secrets.HOSTINGER_USER }}/domains/shreeclasses.site/public_html/
